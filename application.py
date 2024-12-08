@@ -52,13 +52,49 @@ def summarize_text(text):
 
 
 def extract_text_from_pdf(pdf_path):
+    """
+    Extracts text from all pages of a PDF file.
+
+    Parameters:
+        pdf_path (str): Path to the PDF file.
+
+    Returns:
+        str: Concatenated text from all pages, or an empty string if an error occurs.
+    """
     text = ""
-    with fitz.open(pdf_path) as pdf_document:
-        for page_num in range(pdf_document.page_count):
-            page = pdf_document.load_page(page_num)
-            text += page.get_text()
+    try:
+        with fitz.open(pdf_path) as pdf_document:
+            for page_num in range(pdf_document.page_count):
+                text += pdf_document[page_num].get_text()
+    except Exception as e:
+        print(f"Error while extracting text from PDF: {e}")
+        return ""
+    
     return text
 
+
+def extract_text_from_docx(docx_file):
+    """
+    Extracts text from a DOCX file.
+
+    Parameters:
+        docx_file (str): Path to the DOCX file.
+
+    Returns:
+        str: Extracted text from the DOCX file.
+    """
+    try:
+        # Open the DOCX file
+        document = docx.Document(docx_file)
+
+        # Extract text from all paragraphs and join them with newlines
+        extracted_text = "\n".join([para.text for para in document.paragraphs])
+
+        return extracted_text
+
+    except Exception as e:
+        print(f"Error while extracting text from DOCX file: {e}")
+        return ""
 
 #
 application = Flask(__name__)
@@ -79,8 +115,8 @@ def index():
             text = ""
             if file_type == "pdf":
                 text = extract_text_from_pdf(file_path)
-#            elif file_type == "docx":
-#                text = extract_text_from_docx(file_path)
+            elif file_type == "docx":
+                text = extract_text_from_docx(file_path)
             elif file_type == "txt":
                 with open(file_path, "r", encoding="utf-8") as f:
                     text = f.read()
