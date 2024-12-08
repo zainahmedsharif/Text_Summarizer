@@ -1,0 +1,20 @@
+summary/
+
+venv/
+env/
+.env
+# Ignore temporary files
+*.pyc
+__pycache__/
+*.log
+*.tmp
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Ignore Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore sensitive files
+*.pdf
