@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Summarizer App</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-body">
+                <h1 class="text-center mb-4">File Summarizer App</h1>
+                <form action="/" method="post" enctype="multipart/form-data" class="text-center">
+                    <div class="form-group">
+                        <label for="file" class="form-label">Choose a file (PDF, DOCX, TXT):</label>
+                        <input type="file" id="file" name="file" class="form-control-file" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Summarize</button>
+                </form>
+            </div>
+        </div>
+
+        {% if summary %}
+        <div class="card mt-5 shadow">
+            <div class="card-body">
+                <h2>Summary:</h2>
+                <p>{{ summary }}</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Add Bootstrap JS and dependencies (optional for interactive components) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
